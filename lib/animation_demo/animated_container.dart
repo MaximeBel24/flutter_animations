@@ -15,6 +15,8 @@ class _AnimatedContainerState extends State<AnimatedContainerDemo> {
   double heightValue = 150;
   double widthValue = 150;
   Color _color = Colors.blue;
+  bool shadow = true;
+  bool radius = true;
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +28,15 @@ class _AnimatedContainerState extends State<AnimatedContainerDemo> {
             width: widthValue,
             decoration: BoxDecoration(
                 color: _color,
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
                   color: Colors.grey,
-                  offset: Offset(3, 0),
-                  spreadRadius: 2.5,
-                  blurRadius: 3
+                  offset: (shadow) ? const Offset(3, 0) : const Offset(0, 0),
+                  spreadRadius: (shadow) ? 2.5 : 0,
+                  blurRadius: (shadow) ? 3 : 0
                 ),
               ],
-              borderRadius: BorderRadius.circular(10)
+              borderRadius: (radius) ? BorderRadius.circular(30) : BorderRadius.circular(0)
             ),
             duration: _duration,
           curve: Curves.linear,
@@ -52,29 +54,63 @@ class _AnimatedContainerState extends State<AnimatedContainerDemo> {
                   ],
                 ),
                 const Padding(padding: EdgeInsets.all(15)),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Hauteur: ${heightValue.round()}"),
-                    Slider(
-                      activeColor: Colors.blue,
-                        thumbColor: Colors.blue,
-                        min: min,
-                        max: max,
-                        value: heightValue,
-                        onChanged: ((newValue) => setState(() => heightValue = newValue))
-                    ),
-                    Text("Largeur: ${widthValue.round()}"),
-                    Slider(
-                        activeColor: Colors.blue,
-                        thumbColor: Colors.blue,
-                        min: min,
-                        max: max,
-                        value: widthValue,
-                        onChanged: ((newValue) => setState(() => widthValue = newValue))
-                    )
-                  ],
-                )
+                Padding(
+                    padding: EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Hauteur: ${heightValue.round()}"),
+                          Slider(
+                              activeColor: Colors.blue,
+                              thumbColor: Colors.blue,
+                              min: min,
+                              max: max,
+                              value: heightValue,
+                              onChanged: ((newValue) => setState(() => heightValue = newValue))
+                          ),
+                          Text("Largeur: ${widthValue.round()}"),
+                          Slider(
+                              activeColor: Colors.blue,
+                              thumbColor: Colors.blue,
+                              min: min,
+                              max: max,
+                              value: widthValue,
+                              onChanged: ((newValue) => setState(() => widthValue = newValue))
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Shadow : $shadow"),
+                          Switch(
+                              activeColor: Colors.blue,
+                              inactiveThumbColor: Colors.blue,
+                              inactiveTrackColor: Colors.white,
+                              value: shadow,
+                              onChanged: ((newValue) => setState(() => shadow = newValue))
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Radius : $radius"),
+                          Switch(
+                              activeColor: Colors.blue,
+                              inactiveThumbColor: Colors.blue,
+                              inactiveTrackColor: Colors.white,
+                              value: radius,
+                              onChanged: ((newValue) => setState(() => radius = newValue))
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+
               ],
             )
         )
