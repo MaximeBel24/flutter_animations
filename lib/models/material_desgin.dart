@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'datas.dart';
+
 class MyDivider extends Divider {
 
   MyDivider():super(
@@ -31,5 +33,11 @@ class MyScaffold extends Scaffold {
       ),
     ),
     body: destination
+  );
+}
+
+class EmptyWidget extends Center {
+  EmptyWidget(): super(
+    child: Image.asset(Datas().flutter)
   );
 }
