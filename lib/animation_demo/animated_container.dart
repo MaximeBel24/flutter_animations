@@ -14,6 +14,7 @@ class _AnimatedContainerState extends State<AnimatedContainerDemo> {
   double max = 300;
   double heightValue = 150;
   double widthValue = 150;
+  Color _color = Colors.blue;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class _AnimatedContainerState extends State<AnimatedContainerDemo> {
           height: heightValue,
             width: widthValue,
             decoration: BoxDecoration(
-                color: Colors.blue,
+                color: _color,
               boxShadow: const [
                 BoxShadow(
                   color: Colors.grey,
@@ -36,12 +37,21 @@ class _AnimatedContainerState extends State<AnimatedContainerDemo> {
               borderRadius: BorderRadius.circular(10)
             ),
             duration: _duration,
-          curve: Curves.easeIn,
+          curve: Curves.linear,
         ),
         const Padding(padding: EdgeInsets.all(15)),
         Expanded(
             child: ListView(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    colorButton("Bleu", Colors.blue),
+                    colorButton("Rouge", Colors.red),
+                    colorButton("Vert", Colors.green)
+                  ],
+                ),
+                const Padding(padding: EdgeInsets.all(15)),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -69,6 +79,14 @@ class _AnimatedContainerState extends State<AnimatedContainerDemo> {
             )
         )
       ],
+    );
+  }
+
+  FloatingActionButton colorButton(String name, Color color) {
+    return FloatingActionButton(
+        onPressed: (() => setState(() => _color = color )),
+      backgroundColor: color,
+      heroTag: name,
     );
   }
 
