@@ -20,20 +20,18 @@ class _OpacityState extends State<AnimatedOpacityDemo> {
 
   List<Widget> children() {
     List<Widget> c = [];
-    c.add(const Text("Opacity"));
+    // c.add(const Text("Opacity"));
     c.add(AnimatedOpacity(
         opacity: (isOpacity) ? 0 : 1,
         duration: const Duration(milliseconds: 1000),
       child: Image.asset(Datas().flutter),
     ));
-    c.add(TextButton(
-            onPressed: () {
+    c.add(TextButton(onPressed: () {
               setState(() {
                 isOpacity = !isOpacity;
               });
             },
-            child: Text(
-              (isOpacity) ? "Montrer" : "Cacher",
+            child: Text((isOpacity) ? "Montrer" : "Cacher",
               style: const TextStyle(color: Colors.black87),
             ),
         )
