@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animations/animation_demo/animated_container.dart';
 import 'package:flutter_animations/models/datas.dart';
 import 'package:flutter_animations/models/material_desgin.dart';
 
@@ -6,8 +7,8 @@ import '../models/section.dart';
 
 class HomePage extends StatelessWidget {
 
-  List<Section> _sections = [
-    Section(name: "Animated Container", icon: Icons.score, destination: Container(color: Colors.yellow,))
+  final List<Section> _sections = [
+    Section(name: "Animated Container", icon: Icons.score, destination: AnimatedContainerDemo())
   ];
   
   @override
