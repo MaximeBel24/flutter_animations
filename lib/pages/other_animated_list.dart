@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animations/animation_demo/animated_cross_fade.dart';
 import 'package:flutter_animations/animation_demo/animated_opacity.dart';
+import 'package:flutter_animations/animation_demo/animated_position.dart';
 import 'package:flutter_animations/animation_demo/animated_size.dart';
 import 'package:flutter_animations/animation_demo/animated_text.dart';
 import 'package:flutter_animations/animation_demo/fade_in.dart';
@@ -16,14 +17,14 @@ class OtherAnimatedList extends StatelessWidget{
     Section(name: "Cross Fade", icon: Icons.menu, destination: AnimatedCrossFadeDemo()),
     Section(name: "TextStyle", icon: Icons.menu, destination: AnimatedTextStyleDemo()),
     Section(name: "Taille", icon: Icons.menu, destination: AnimatedSizeDemo()),
-    Section(name: "Positionnement", icon: Icons.menu, destination: EmptyWidget()),
+    Section(name: "Positionnement", icon: Icons.menu, destination: AnimatedPositionDemo()),
   ];
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        separatorBuilder: ((context, i) => Tile(_sections[i])),
-        itemBuilder: ((context, i) => MyDivider()),
+        separatorBuilder: ((context, i) => MyDivider()),
+        itemBuilder: ((context, i) => Tile(_sections[i])),
         itemCount: _sections.length
     );
   }
