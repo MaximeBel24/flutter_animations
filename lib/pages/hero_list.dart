@@ -3,6 +3,7 @@ import 'package:flutter_animations/animation_demo/hero_widget.dart';
 import 'package:flutter_animations/models/datas.dart';
 import 'package:flutter_animations/models/greek_city.dart';
 import 'package:flutter_animations/models/material_desgin.dart';
+import 'package:flutter_animations/pages/hero_detail.dart';
 
 class HeroList extends StatelessWidget{
 
@@ -11,10 +12,11 @@ class HeroList extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 5),
+      padding: const EdgeInsets.only(top: 5),
       child: ListView.builder(
           itemBuilder: (context, i) {
             GreekCity city = _cities[i];
+            HeroWidget hero = HeroWidget(url: city.image);
             return InkWell(
               child: Container(
                   child: Card(
@@ -24,7 +26,7 @@ class HeroList extends StatelessWidget{
                         Container(
                           height: 75,
                           width: 125,
-                          child: HeroWidget(url: city.image),
+                          child: hero,
                         ),
                         Text(city.name)
                       ],
@@ -32,7 +34,7 @@ class HeroList extends StatelessWidget{
                   )
               ),
               onTap: () {
-                
+                Datas().pusher(context, city.name, HeroDetail(hero: hero, city: city));
               },
             );
           },
