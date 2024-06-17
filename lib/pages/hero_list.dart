@@ -18,20 +18,18 @@ class HeroList extends StatelessWidget{
             GreekCity city = _cities[i];
             HeroWidget hero = HeroWidget(url: city.image);
             return InkWell(
-              child: Container(
-                  child: Card(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          height: 75,
-                          width: 125,
-                          child: hero,
-                        ),
-                        Text(city.name)
-                      ],
+              child: Card(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      height: 75,
+                      width: 125,
+                      child: hero,
                     ),
-                  )
+                    Text(city.name)
+                  ],
+                ),
               ),
               onTap: () {
                 Datas().pusher(context, city.name, HeroDetail(hero: hero, city: city));
