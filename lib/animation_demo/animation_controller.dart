@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
+import '../models/datas.dart';
 import '../models/material_desgin.dart';
 import '../models/transition_type.dart';
 
@@ -15,8 +18,13 @@ class AnimationControllerDemo extends StatefulWidget {
 
 class _DemoState extends State<AnimationControllerDemo> with SingleTickerProviderStateMixin{
 
+  final Image _image = Image.asset(Datas().flutter);
+  late Animation<Decoration> _animationDecoration;
   late AnimationController _animationController;
+  late DecorationTween _decorationTween;
+  late CurvedAnimation _curvedAnimation;
   Duration duration = const Duration(seconds: 1);
+  bool isAnim = false;
 
   @override
   void initState() {
@@ -26,6 +34,18 @@ class _DemoState extends State<AnimationControllerDemo> with SingleTickerProvide
         duration: duration,
         vsync: this
     );
+    _curvedAnimation = CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.linear
+    );
+    setupDecoration();
+  }
+
+  setupDecoration() {
+    BoxDecoration begin = BoxDecoration(color: Colors.lightBlue, borderRadius: BorderRadius.circular(15));
+    BoxDecoration end = BoxDecoration(color: Colors.orange, borderRadius: BorderRadius.circular(500));
+    _decorationTween = DecorationTween(begin: begin, end: end);
+    _animationDecoration = _decorationTween.animate(_curvedAnimation);
   }
 
   @override
@@ -37,19 +57,23 @@ class _DemoState extends State<AnimationControllerDemo> with SingleTickerProvide
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double max = size.width * 0.8;
+    double max = size.width;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
           height: max,
           width: max,
-          child: Center(
-            child: transition(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              transition()
+            ],
           ),
         ),
         TextButton(
             onPressed: () {
-              
+              performTransition();
             },
             child: const Text("Faire la transition")
         )
@@ -59,7 +83,24 @@ class _DemoState extends State<AnimationControllerDemo> with SingleTickerProvide
 
   Widget transition() {
     switch(widget.type) {
+      case TransitionType.decoratedBox: return decoratedBox();
       default: return EmptyWidget();
     }
+  }
+
+  DecoratedBoxTransition decoratedBox() {
+    return DecoratedBoxTransition(
+        decoration: _animationDecoration,
+        child: _image
+    );
+  }
+
+  performTransition() {
+    if (isAnim) {
+      _animationController.reverse();
+    } else {
+      _animationController.forward();
+    }
+    isAnim = !isAnim;
   }
 }
