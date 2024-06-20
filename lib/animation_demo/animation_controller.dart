@@ -61,7 +61,7 @@ class _DemoState extends State<AnimationControllerDemo> with SingleTickerProvide
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        SizedBox(
           height: max,
           width: max,
           child: Row(
@@ -84,6 +84,7 @@ class _DemoState extends State<AnimationControllerDemo> with SingleTickerProvide
   Widget transition() {
     switch(widget.type) {
       case TransitionType.decoratedBox: return decoratedBox();
+      case TransitionType.fade: return fade();
       default: return EmptyWidget();
     }
   }
@@ -92,6 +93,25 @@ class _DemoState extends State<AnimationControllerDemo> with SingleTickerProvide
     return DecoratedBoxTransition(
         decoration: _animationDecoration,
         child: _image
+    );
+  }
+
+  FadeTransition fade() {
+    return FadeTransition(
+        opacity: CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeOut
+            ),
+        // Tween<double>(
+        //     begin: 1,
+        //     end: 0.33 )
+        //     .animate(
+        //     CurvedAnimation(
+        //     parent: _animationController,
+        //     curve: Curves.easeOut
+        //     )
+        // ),
+      child: _image,
     );
   }
 
